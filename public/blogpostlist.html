@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <title>TestClient</title>
+</head>
+<body>
+
+    <!----------- HTML-elements -------------->
+    <div id = 'container'></div>
+        
+    <!------------- JavaScript --------------->
+    <script>
+
+        let container = document.getElementById('container');
+        
+        async function listBlogPost() {
+
+            let url = "/blogposts";
+
+            try {
+                let response = await fetch(url);
+                let data = await response.json();
+
+                if(response.status != 200){
+                    throw data.error;
+                }
+
+                container.innerHTML = "";
+
+                for( let value of data){
+
+                    let date = new Date(value.date);
+
+                    let html = `<h2> ${value.heading} </h2>`;
+                    html += `<p> ${date.toLocaleDateString()} </p>`
+                    html += `<p> ${value.blogtext} </p><hr>`
+
+                    let newDiv = document.createElement('div');
+                    newDiv.innerHTML = html;
+                    container.appendChild(newDiv);
+
+                    let deleteBtn = document.createElement('button');
+                    deleteBtn.innerHTML = 'Delete';
+                    deleteBtn.addEventListener('click', function(evt) {
+                        deleteBlogPost(value.id); 
+                    });
+
+                    newDiv.insertBefore(deleteBtn, newDiv.lastElementChild);
+                }
+
+            }
+            catch(error) {
+                console.log(error);
+            }
+        }
+        
+        
+        
+        
+        async function deleteBlogPost(blogpostId){
+
+            let url = "/blogposts";
+
+            let updata = {
+                id: blogpostId
+            }
+
+            let cfg = {
+                method: "DELETE",
+                headers: {"content-type":"application/json"},
+                body: JSON.stringify(updata) 
+            }
+
+            try {
+                let response = await fetch(url, cfg);
+                let data = await response.json();
+
+                if(response.status != 200){
+                    throw data.error;
+                } else{
+                    console.log(data.msg)
+                }
+
+                listBlogPost();
+            } catch (error) {
+                console.log(error)
+                
+            }
+        }
+        
+        
+        listBlogPost();
+
+    </script>
+
+    <!---------------- CSS ------------------->
+    <style>        
+
+    </style>
+
+</body>
+
+</html>
