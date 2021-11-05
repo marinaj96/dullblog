@@ -15,18 +15,12 @@
 
         let container = document.getElementById('container');
         
-        async function listBlogPost() {
+        async function listAllUsers() {
 
-            let url = "/blogposts";
-
-            let token = localStorage.getItem('token');
-            let cfg = {
-                method: 'GET',
-                headers: {'authorization': token}
-            }
+            let url = "/users";
 
             try {
-                let response = await fetch(url, cfg);
+                let response = await fetch(url);
                 let data = await response.json();
 
                 if(response.status != 200){
@@ -37,23 +31,13 @@
 
                 for( let value of data){
 
-                    let date = new Date(value.date);
-
-                    let html = `<h2> ${value.heading} </h2>`;
-                    html += `<p> ${date.toLocaleDateString()} </p>`
-                    html += `<p> ${value.blogtext} </p><hr>`
+                    let html = `<h2> Username: ${value.username}</h2>`;
+                    html += `<p> User ID: ${value.id} </p><hr>`
 
                     let newDiv = document.createElement('div');
                     newDiv.innerHTML = html;
                     container.appendChild(newDiv);
 
-                    let deleteBtn = document.createElement('button');
-                    deleteBtn.innerHTML = 'Delete';
-                    deleteBtn.addEventListener('click', function(evt) {
-                        deleteBlogPost(value.id); 
-                    });
-
-                    newDiv.insertBefore(deleteBtn, newDiv.lastElementChild);
                 }
 
             }
@@ -64,11 +48,10 @@
         
         
         
-        
+        /*
         async function deleteBlogPost(blogpostId){
 
             let url = "/blogposts";
-            let token = localStorage.getItem('token');
 
             let updata = {
                 id: blogpostId
@@ -76,9 +59,7 @@
 
             let cfg = {
                 method: "DELETE",
-                headers: {"content-type":"application/json",
-                            'authorization': token
-                        },
+                headers: {"content-type":"application/json"},
                 body: JSON.stringify(updata) 
             }
 
@@ -90,7 +71,6 @@
                     throw data.error;
                 } else{
                     console.log(data.msg)
-                    return;
                 }
 
                 listBlogPost();
@@ -99,9 +79,9 @@
                 
             }
         }
+        */
         
-        
-        listBlogPost();
+        listAllUsers();
 
     </script>
 

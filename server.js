@@ -7,12 +7,16 @@ server.set("port", PORT);
 server.use(express.static("public"));
 server.use(express.json());
 
-const db = require("./modules/db.js");
 const blogpost = require('./modules/blogposts.js');
+const authUtils = require('./modules/auth_utils.js')
+const users = require('./modules/users.js')
+
+server.use(blogpost);
+server.use(users);
 
 // endpoints ----------------------------
 
-server.use(blogpost);
+
 
 
 server.use(function (err, req, res, next){

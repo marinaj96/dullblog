@@ -20,9 +20,34 @@ dbMethods.createBlogPost = function(heading, blogtext, userid){
     return pool.query(sql, values);
 }
 
-dbMethods.deleteBlogPost = function(id){
-    let sql = "DELETE FROM blogposts WHERE id = $1 RETURNING *";
-	let values = [id];
+dbMethods.deleteBlogPost = function(id, userid){
+    let sql = "DELETE FROM blogposts WHERE id = $1 AND userid = $2 RETURNING *";
+	let values = [id, userid];
+    return pool.query(sql, values);
+}
+
+
+dbMethods.getAllUsers = function() {
+    let sql = "SELECT id, username, password, salt FROM users";
+    return pool.query(sql);
+}
+
+dbMethods.getUser = function(username) {
+    let sql = "SELECT * FROM users WHERE username = $1";
+    let values = [username];
+    return pool.query(sql, values);
+}
+
+dbMethods.createUser = function(username, password, salt){
+    let sql = "INSERT INTO users (id, username, password, salt) VALUES (DEFAULT, $1, $2, $3) RETURNING *";
+    let values = [username, password, salt];
+    return pool.query(sql, values);
+}
+
+
+dbMethods.deleteUsers = function(id){
+    let sql = "DELETE FROM users WHERE id = $1 RETURNING *";
+    let values = [id];
     return pool.query(sql, values);
 }
 
