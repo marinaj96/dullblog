@@ -15,7 +15,7 @@ dbMethods.getAllBlogPosts = function(){
 }
 
 dbMethods.createBlogPost = function(heading, blogtext, userid){
-    let sql = "INSERT INTO blogposts (id, date, heading, blogtext, userid) VALUES(DEFAULT, DEFAULT, $1, $2, $3) returning *";
+    let sql = "INSERT INTO blogposts (id, date, heading, blogtext, userid) VALUES(DEFAULT, DEFAULT, $1, $2, $3) RETURNING *";
 	let values = [heading, blogtext, userid];
     return pool.query(sql, values);
 }

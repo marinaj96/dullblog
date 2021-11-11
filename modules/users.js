@@ -60,6 +60,8 @@ router.get('/users', async function(req, res, next){
 router.post('/users', async function(req, res, next){
 
     let credString = req.headers.authorization;
+    let name = req.headers;
+    console.log(name)
     let cred = authUtils.decodeCred(credString);
 
     if (cred.username == '' || cred.password == ''){

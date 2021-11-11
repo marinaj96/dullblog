@@ -22,6 +22,7 @@
             try {
                 let response = await fetch(url);
                 let data = await response.json();
+                console.log(data)
 
                 if(response.status != 200){
                     throw data.error;
@@ -46,40 +47,6 @@
             }
         }
         
-        
-        
-        /*
-        async function deleteBlogPost(blogpostId){
-
-            let url = "/blogposts";
-
-            let updata = {
-                id: blogpostId
-            }
-
-            let cfg = {
-                method: "DELETE",
-                headers: {"content-type":"application/json"},
-                body: JSON.stringify(updata) 
-            }
-
-            try {
-                let response = await fetch(url, cfg);
-                let data = await response.json();
-
-                if(response.status != 200){
-                    throw data.error;
-                } else{
-                    console.log(data.msg)
-                }
-
-                listBlogPost();
-            } catch (error) {
-                console.log(error)
-                
-            }
-        }
-        */
         
         listAllUsers();
 

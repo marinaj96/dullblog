@@ -22,7 +22,7 @@
 
         btnCreatePost.addEventListener('click', async function(evt) {
 
-            let url = "/blogposts";
+            let url = "http://localhost:8080/blogposts";
 
             let updata = {
                 heading: inputHeading.value,
@@ -30,6 +30,7 @@
             }
 
             let token = localStorage.getItem('token');
+            //console.log(token);
 
             let cfg = {
                 method: 'POST',
@@ -41,6 +42,7 @@
 
             try {
                 let response = await fetch(url, cfg);
+                console.log(response)
                 let data = await response.json();
                 
                 if(response.status != 200){
@@ -51,7 +53,7 @@
 
             }
             catch(error) {
-                //console.log(error);
+                console.log(error);
                 txtResult.innerHTML = 'Something went wrong';
                 }
             }

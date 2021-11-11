@@ -16,7 +16,7 @@ function protect(req, res, next){
     }
 
     res.locals.userid = payload.userid;
-    res.locals.username = payload.username;
+    res.locals.username = payload.user;
 
     next();
 }

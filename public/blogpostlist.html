@@ -17,7 +17,7 @@
         
         async function listBlogPost() {
 
-            let url = "/blogposts";
+            let url = "http://localhost:8080/blogposts";
 
             let token = localStorage.getItem('token');
             let cfg = {
@@ -67,7 +67,7 @@
         
         async function deleteBlogPost(blogpostId){
 
-            let url = "/blogposts";
+            let url = "http://localhost:8080/blogposts";
             let token = localStorage.getItem('token');
 
             let updata = {
