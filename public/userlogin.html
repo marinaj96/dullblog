@@ -24,7 +24,7 @@
 
         btnLogin.addEventListener('click', async function(evt) {
 
-            let url = "http://localhost:8080/users/login";
+            let url = "/users/login";
             let credString = createCredentialString(inputUsername.value, inputPassword.value);
 
             let cfg = {
